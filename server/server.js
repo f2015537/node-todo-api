@@ -25,11 +25,11 @@ app.get('/todos', (req,res) => {
     .then((todos) => {
         res.json({todos})
     })
-    .catch(res.status(400).json)
+    .catch(err => res.status(400).json(err))
 })
 
 app.listen(3000, () => {
-    console.log('Started on port 3000')
+    console.log('Started on port 3000\n')
 })
 
 module.exports = {
