@@ -80,6 +80,18 @@ app.patch('/todos/:id', (req,res) => {
 
 })
 
+app.post('/users', (req,res) => {
+    const body = _.pick(req.body, ['email', 'password'])
+    const user = new User(body)
+    user.save().then(() => {
+        return user.generateAuthToken()
+    })
+    .then((token) => {
+        res.header('x-auth', token).json(user)
+    })
+    .catch(err => res.status(400).json(err))
+})
+
 app.listen(port, () => {
     console.log(`Started on port ${port}\n`)
 })
